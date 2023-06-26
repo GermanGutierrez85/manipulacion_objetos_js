@@ -20,6 +20,39 @@ y leer los datos ingresados en "usuario" y "email".
 con los datos almacenados en memoria, a fin de darle la bienvenida al usuario logeado.
 
 */
+const btnIngresar = document.getElementById("btnIngresar");
+const usuario = document.getElementById('usuario');
+const email= document.getElementById('email');
+
+const usuarioLogeado = document.getElementById('usuarioLogeado');
+const emailLogeado = document.getElementById('emailLogeado');
+
+const login = document.getElementById('login');
+const logout = document.getElementById('logout')
+
+// Evento click para inico de sesion
+
+btnIngresar.onclick = () =>{
+    usuario.onchange = () => usuario.value;
+
+    email.onchange = () => email.value;
+    
+    let nombreUsuario = usuario.value;
+    let emailUsuario = email.value;
+    localStorage.setItem('user', nombreUsuario);
+    localStorage.setItem('mailAddress', emailUsuario);
+
+    usuarioLogeado.innerHTML = localStorage.getItem('user');
+    emailLogeado.innerHTML = localStorage.getItem('mailAddress');
+
+    usuario.value = "";
+    email.value = "";
+
+    login.classList.add('hidden');
+    logout.classList.remove('hidden');
+    
+}
+
 
 /* 2 - Enunciado
 
@@ -31,6 +64,16 @@ almacenados los datos de "usuario" y "email".
 y deberá revelar la sección "logout" (quitar la clase hidden).
 
 */
+const userName = localStorage.getItem('user');
+const userEmail = localStorage.getItem('mailAddress')
+
+if(userName !==null || userEmail !==null){
+    
+    usuarioLogeado.innerHTML = userName;
+    emailLogeado.innerHTML = userEmail;
+    login.classList.add('hidden');
+    logout.classList.remove('hidden'); 
+}
 
 /* 3 - Enunciado
 
@@ -41,3 +84,11 @@ volverse a cargar debería aparecer nuevamente la sección de bienvenida
 ya que no debería haber más datos en memoria cargados.
 
 */
+//Evento click para salida de sesion
+
+const btnSalir = document.getElementById('btnSalir');
+
+btnSalir.onclick = () => {
+    localStorage.clear();
+    location.reload()
+}
